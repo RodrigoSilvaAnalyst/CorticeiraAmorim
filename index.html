@@ -249,6 +249,7 @@ h3{font-size:clamp(13px,1.25vw,18px);font-weight:600;letter-spacing:-.01em;margi
 .corner-logo.ipam img{width:clamp(40px,4.6vw,58px)}
 body.is-title .corner-logo.amorim,
 body.is-title .corner-logo.ipam{opacity:0;pointer-events:none}
+body.is-thanks .corner-logo.amorim{opacity:0;pointer-events:none}
 
 /* === NAV CHROME === */
 .chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:flex-end;align-items:center;padding:14px 22px;pointer-events:none}
@@ -529,6 +530,106 @@ body.is-title .corner-logo.ipam{opacity:0;pointer-events:none}
   .ambient::before,.leaf-float,.kpi-hero::after,.kpi-hero::before,.s-head .dot{animation:none !important}
   .fade-up{transition:opacity .3s ease !important;transform:none !important}
   .slide{transition:opacity .3s ease !important;transform:none !important}
+}
+
+/* === ÚLTIMA PÁGINA · ASSINATURA ANIMADA AMORIM ============= */
+.thanks-grid{
+  display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(24px,3.5vw,56px);
+  align-items:center;width:100%;
+}
+.thanks-content{display:flex;flex-direction:column;gap:14px;min-width:0}
+.thanks-signature{display:flex;align-items:center;justify-content:center;padding:clamp(8px,1.5vw,24px)}
+
+.sig-frame{
+  position:relative;width:100%;max-width:380px;
+  padding:36px 30px 28px;
+  background:linear-gradient(180deg,rgba(26,93,74,.04) 0%,rgba(184,118,62,.06) 100%);
+  border:1px solid var(--line-2);border-radius:16px;
+  box-shadow:0 18px 48px rgba(26,93,74,.10),0 4px 12px rgba(26,93,74,.06);
+}
+.sig-frame::before{
+  content:"";position:absolute;top:14px;left:14px;right:14px;bottom:14px;
+  border:1px dashed rgba(26,93,74,.18);border-radius:9px;pointer-events:none;
+}
+.sig-frame::after{
+  content:"⁂";position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--bg);padding:0 10px;color:var(--cork-dark);font-size:13px;letter-spacing:.3em;
+}
+
+.sig-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(26,93,74,.45),transparent);width:70%;margin:0 auto 18px}
+
+.sig-canvas{
+  position:relative;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:6px 12px 4px;overflow:visible;
+}
+.sig-logo{
+  display:block;width:min(220px,80%);height:auto;
+  clip-path:inset(0 100% 0 0);
+  -webkit-clip-path:inset(0 100% 0 0);
+  animation:sig-write 11s ease-in-out infinite;
+  filter:drop-shadow(0 3px 10px rgba(26,93,74,.18));
+  mix-blend-mode:multiply;
+}
+@keyframes sig-write{
+  0%,4%{clip-path:inset(0 100% 0 0);-webkit-clip-path:inset(0 100% 0 0);opacity:0}
+  7%{opacity:1}
+  48%{clip-path:inset(0 0% 0 0);-webkit-clip-path:inset(0 0% 0 0);opacity:1}
+  82%{clip-path:inset(0 0% 0 0);-webkit-clip-path:inset(0 0% 0 0);opacity:1}
+  93%{clip-path:inset(0 0% 0 0);-webkit-clip-path:inset(0 0% 0 0);opacity:0}
+  100%{clip-path:inset(0 100% 0 0);-webkit-clip-path:inset(0 100% 0 0);opacity:0}
+}
+
+/* Pena/ponta que segue o traço */
+.sig-pen{
+  position:absolute;top:50%;left:10%;
+  width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#2d8068,#0d3528 70%);
+  box-shadow:0 0 14px rgba(26,93,74,.65),0 2px 4px rgba(0,0,0,.30);
+  transform:translateY(-50%);opacity:0;z-index:3;
+  animation:sig-pen-move 11s ease-in-out infinite;
+}
+.sig-pen::after{
+  content:"";position:absolute;left:-30px;top:50%;transform:translateY(-50%);
+  width:30px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(26,93,74,.6));border-radius:2px;
+}
+@keyframes sig-pen-move{
+  0%,4%{left:10%;opacity:0}
+  7%{left:10%;opacity:1}
+  48%{left:90%;opacity:1}
+  56%{left:90%;opacity:.4}
+  62%{opacity:0}
+  100%{left:10%;opacity:0}
+}
+
+/* Floreado decorativo desenhado por baixo */
+.sig-flourish{display:block;width:100%;height:auto;margin-top:10px}
+.sig-flourish path{
+  stroke-dasharray:700;stroke-dashoffset:700;
+  animation:sig-draw 11s ease-out infinite;
+}
+.sig-flourish .line2{stroke-dasharray:500;stroke-dashoffset:500;animation-delay:.4s}
+@keyframes sig-draw{
+  0%,48%{stroke-dashoffset:700;opacity:0}
+  52%{opacity:1}
+  78%{stroke-dashoffset:0;opacity:1}
+  88%{stroke-dashoffset:0;opacity:1}
+  93%{stroke-dashoffset:0;opacity:0}
+  100%{stroke-dashoffset:700;opacity:0}
+}
+
+.sig-caption{
+  font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:14px;font-weight:600;text-align:center;
+}
+.sig-caption .dash{display:inline-block;width:18px;height:1px;background:var(--primary)}
+.sig-caption b{color:var(--primary);font-weight:700;letter-spacing:.18em}
+
+@media (max-width:900px){
+  .thanks-grid{grid-template-columns:1fr;gap:24px}
+  .sig-frame{max-width:340px;margin:0 auto}
 }
 </style>
 </head>
@@ -1941,18 +2042,42 @@ body.is-title .corner-logo.ipam{opacity:0;pointer-events:none}
        ============================================================ -->
   <section class="slide title-slide" data-slide="24">
     <div class="slide-inner" style="align-items:flex-start">
-      <div class="meta-line"><span class="bar"></span><span>Q&A · Discussão & Comentários</span></div>
-      <h1 class="hero fade-up d1">Obrigado.</h1>
-      <p class="lead fade-up d2" style="margin-top:14px">Equity Research sobre Corticeira Amorim, S.G.P.S., S.A. – uma das 20 maiores cotadas portuguesas e líder mundial absoluta em produtos de cortiça. Apresentação preparada no âmbito do projeto final da disciplina de <strong>Gestão Financeira</strong>, IPAM Marketing School (2026).</p>
+      <div class="thanks-grid">
+        <div class="thanks-content">
+          <div class="meta-line fade-up d1"><span class="bar"></span><span>Q&amp;A · Discussão &amp; Comentários</span></div>
+          <h1 class="hero fade-up d1" style="margin:0">Obrigado.</h1>
+          <p class="lead fade-up d2" style="margin-top:14px">Equity Research sobre Corticeira Amorim, S.G.P.S., S.A. – uma das 20 maiores cotadas portuguesas e líder mundial absoluta em produtos de cortiça. Apresentação preparada no âmbito do projeto final da disciplina de <strong>Gestão Financeira</strong>, IPAM Marketing School (2026).</p>
 
-      <div class="grid g-4 fade-up d3" style="margin-top:24px">
-        <div class="card flat"><div class="label">Equity Value</div><div class="value" style="font-size:24px;color:var(--green)">1 312 M€</div></div>
-        <div class="card flat"><div class="label">Preço-Alvo</div><div class="value" style="font-size:24px;color:var(--orange)">9,87 €</div></div>
-        <div class="card flat"><div class="label">Upside</div><div class="value" style="font-size:24px">+22,6%</div></div>
-        <div class="card flat"><div class="label">WACC</div><div class="value" style="font-size:24px">6,71%</div></div>
+          <div class="grid g-4 fade-up d3" style="margin-top:24px">
+            <div class="card flat"><div class="label">Equity Value</div><div class="value" style="font-size:24px;color:var(--green)">1 312 M€</div></div>
+            <div class="card flat"><div class="label">Preço-Alvo</div><div class="value" style="font-size:24px;color:var(--orange)">9,87 €</div></div>
+            <div class="card flat"><div class="label">Upside</div><div class="value" style="font-size:24px">+22,6%</div></div>
+            <div class="card flat"><div class="label">WACC</div><div class="value" style="font-size:24px">6,71%</div></div>
+          </div>
+
+          <p class="cite fade-up d4" style="margin-top:24px">IPAM · Gestão Financeira · Prazo 15.05.2026 · Defesa do projeto</p>
+        </div>
+
+        <!-- Assinatura animada (Corticeira Amorim) · loop contínuo durante Q&A -->
+        <div class="thanks-signature fade-up d3" aria-hidden="true">
+          <div class="sig-frame">
+            <div class="sig-rule"></div>
+            <div class="sig-canvas">
+              <img class="sig-logo" alt="" data-logo="amorim">
+              <span class="sig-pen"></span>
+            </div>
+            <svg class="sig-flourish" viewBox="0 0 320 60" preserveAspectRatio="xMidYMid meet">
+              <path class="line1" d="M 14 32 C 64 12, 124 44, 184 26 S 282 36, 308 22" stroke="#1a5d4a" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="line2" d="M 32 44 Q 102 40, 170 46 Q 240 52, 290 41" stroke="#b8763e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+            </svg>
+            <div class="sig-caption">
+              <span class="dash"></span>
+              <span><b>Vila Nova de Gaia</b> · 1870</span>
+              <span class="dash"></span>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <p class="cite fade-up d4" style="margin-top:32px">IPAM · Gestão Financeira · Prazo 15.05.2026 · Defesa do projeto</p>
     </div>
   </section>
 
@@ -1971,6 +2096,12 @@ body.is-title .corner-logo.ipam{opacity:0;pointer-events:none}
 (function(){
   'use strict';
 
+  // Reaproveitar o data URI do logo Amorim para a assinatura (evita duplicar base64)
+  (function(){
+    const src = document.querySelector('.corner-logo.amorim img')?.src;
+    if(src) document.querySelectorAll('img[data-logo="amorim"]').forEach(el => { el.src = src; });
+  })();
+
   const slides = Array.from(document.querySelectorAll('.slide'));
   const total = slides.length;
   let idx = 0;
@@ -1986,6 +2117,7 @@ body.is-title .corner-logo.ipam{opacity:0;pointer-events:none}
 
   function syncTitleState(){
     document.body.classList.toggle('is-title', idx === 0);
+    document.body.classList.toggle('is-thanks', idx === total - 1);
   }
 
   function go(target){
